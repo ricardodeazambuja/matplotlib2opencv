@@ -1,3 +1,5 @@
+
+
 import cv2
 import numpy
 import matplotlib.pyplot as plt
@@ -31,12 +33,17 @@ def annotate_mpl2cv(img_cv,text,text_posX,text_posY,text_font):
 
     img_plt = cv2.cvtColor(img_cv, cv2.COLOR_BGR2RGB ) # converts to numpy style
 
-    fig = plt.figure(figsize=(img_cv.shape[1]/100., img_cv.shape[0]/100.), dpi=100)
+    fig = plt.figure(figsize=(img_cv.shape[1]/100., img_cv.shape[0]/100.), dpi=100, frameon=False)
 
     ax = plt.gca()
     ax.imshow(img_plt)
     ax.text(text_posX, text_posY, text, fontdict=text_font)
     plt.axis('off')
+    plt.xticks([],[]) # avoids white spaces
+    plt.yticks([],[]) # avoids white spaces
+    plt.subplots_adjust(left=None, bottom=None, right=None, top=None,
+                        wspace=None, hspace=None)
+    plt.tight_layout(pad=0.0, h_pad=0.0, w_pad=0.0, rect=None)
     fig.canvas.draw()
     buf = fig.canvas.tostring_rgb()
     ncols, nrows = fig.canvas.get_width_height()
