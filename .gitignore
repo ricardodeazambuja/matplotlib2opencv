@@ -1,2 +1,4 @@
 
 .ipynb_checkpoints/Annotate_OpenCV_with_Matplotlib-checkpoint.ipynb
+
+*.pyc

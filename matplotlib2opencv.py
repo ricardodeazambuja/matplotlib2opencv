@@ -53,3 +53,29 @@ def annotate_mpl2cv(img_cv,text,text_posX,text_posY,text_font):
     plt.close()
     
     return img_cv
+
+def anything2cv(shape,mplfunc_list,args_list):
+    '''
+    From Matplotlib to OpenCV
+    
+    Parameters:
+    
+    img_cv: OpenCV image
+        
+    '''
+
+    fig = plt.figure(figsize=(shape[1]/100., shape[0]/100.), dpi=100, frameon=False)
+    
+    for func,args in zip(mplfunc_list,args_list):
+        func(*args)
+
+    
+    fig.canvas.draw()
+    buf = fig.canvas.tostring_rgb()
+    ncols, nrows = fig.canvas.get_width_height()
+    img_cv = cv2.cvtColor(
+                numpy.fromstring(buf, dtype=numpy.uint8).reshape(nrows, ncols, 3).copy(),
+                cv2.COLOR_BGR2RGB)
+    plt.close()
+    
+    return img_cv
